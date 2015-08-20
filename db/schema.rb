@@ -11,17 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150819195317) do
+ActiveRecord::Schema.define(version: 20150820225304) do
 
-  create_table "articles", force: true do |t|
-    t.string   "title"
+  create_table "articles", force: :cascade do |t|
+    t.string   "title",              limit: 255
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
-  create_table "comments", force: true do |t|
-    t.string   "author_name"
+  create_table "comments", force: :cascade do |t|
+    t.string   "author_name", limit: 255
     t.text     "body"
     t.integer  "article_id"
     t.datetime "created_at"
@@ -30,7 +34,7 @@ ActiveRecord::Schema.define(version: 20150819195317) do
 
   add_index "comments", ["article_id"], name: "index_comments_on_article_id"
 
-  create_table "taggings", force: true do |t|
+  create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
     t.integer  "article_id"
     t.datetime "created_at"
@@ -40,8 +44,8 @@ ActiveRecord::Schema.define(version: 20150819195317) do
   add_index "taggings", ["article_id"], name: "index_taggings_on_article_id"
   add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id"
 
-  create_table "tags", force: true do |t|
-    t.string   "name"
+  create_table "tags", force: :cascade do |t|
+    t.string   "name",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
